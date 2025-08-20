@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2 class="mb-4">관리자 대시보드</h2>
+        {% if submissions %}
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                    <tr>
+                        {% for key in submissions[0].keys() %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in submissions %}
+                        <tr>
+                            {% for value in item.values() %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>제출된 데이터가 없습니다.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}로그인{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="text-center mb-4"><i class="fa-solid fa-right-to-bracket"></i> 로그인</h3>
+
+                <!-- Flashed messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="id" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="id" name="id" value="{{ request.form.id }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">로그인</button>
+                </form>
+                <!-- Place the "Forgot ID/Password?" link and modal here -->
+                <div class="text-center mt-2">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModal">아이디 또는 비밀번호를 잊으셨나요?</a>
+                </div>
+
+                <!-- Forgot Modal -->
+                <div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="POST" action="{{ url_for('forgot') }}">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="forgotModalLabel">아이디/비밀번호 찾기</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">가입 시 사용한 이메일</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary w-100">전송</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extra link for sign up -->
+                <div class="text-center mt-3">
+                    <p>계정 없으신가요? <a href="{{ url_for('signup') }}">회원가입</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelector('#forgotModal form').addEventListener('submit', function(e) {
+    e.preventDefault(); // prevent default form submission
+
+    const email = document.querySelector('#forgotModal #email').value;
+
+    fetch("{{ url_for('forgot') }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: new URLSearchParams({email})
+    })
+    .then(response => response.json())
+    .then(data => {
+        const modalBody = document.querySelector('#forgotModal .modal-body');
+        modalBody.innerHTML = ''; // clear previous content
+
+        const alertDiv = document.createElement('div');
+        alertDiv.className = data.success ? 'alert alert-success' : 'alert alert-warning';
+        alertDiv.innerHTML = `<p>${data.message}</p>`;
+        if (data.reset_link) {
+            alertDiv.innerHTML += `<p>링크: <a href="${data.reset_link}" target="_blank">${data.reset_link}</a></p>`;
+        }
+        modalBody.appendChild(alertDiv);
+    })
+    .catch(err => console.error(err));
+});
+</script>
+{% endblock %}

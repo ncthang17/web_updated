@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}회원가입{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="text-center mb-4"><i class="fa-solid fa-user-plus"></i> 회원가입</h3>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST" id="signupForm">
+                    <div class="mb-3">
+                        <label class="form-label">아이디</label>
+                        <input type="text" class="form-control" name="id" id="userid" required>
+                        <small id="idFeedback" class="form-text"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                        <small id="passwordFeedback" class="form-text"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">이메일</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">나이</label>
+                        <input type="number" class="form-control" name="age" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">학력</label>
+                        <input type="text" class="form-control" name="education">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">주소</label>
+                        <input type="text" class="form-control" name="address">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">전화번호</label>
+                        <input type="text" class="form-control" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">경력</label>
+                        <input type="text" class="form-control" name="work_experience">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">자격증</label>
+                        <input type="text" class="form-control" name="certificate">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">회원가입</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('login') }}">이미 계정이 있으신가요? 로그인</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 비밀번호 일치 확인
+const password = document.getElementById('password');
+const confirm_password = document.getElementById('confirm_password');
+const passwordFeedback = document.getElementById('passwordFeedback');
+
+function checkPasswordMatch() {
+    if(confirm_password.value === '') {
+        passwordFeedback.textContent = '';
+        return;
+    }
+    if(password.value === confirm_password.value) {
+        passwordFeedback.textContent = '비밀번호가 일치합니다.';
+        passwordFeedback.style.color = 'green';
+    } else {
+        passwordFeedback.textContent = '비밀번호가 일치하지 않습니다.';
+        passwordFeedback.style.color = 'red';
+    }
+}
+
+password.addEventListener('input', checkPasswordMatch);
+confirm_password.addEventListener('input', checkPasswordMatch);
+
+// ID 중복 확인
+const userid = document.getElementById('userid');
+const idFeedback = document.getElementById('idFeedback');
+
+userid.addEventListener('blur', () => {
+    fetch(`/check_id?userid=${userid.value}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.exists){
+                idFeedback.textContent = '이미 존재하는 아이디입니다.';
+                idFeedback.style.color = 'red';
+            } else {
+                idFeedback.textContent = '사용 가능한 아이디입니다.';
+                idFeedback.style.color = 'green';
+            }
+        });
+});
+</script>
+
+{% endblock %}
