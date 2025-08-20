@@ -80,7 +80,8 @@ Open in browser: http://127.0.0.1:5000
 
 ---
 ### 🗂 Workflow Diagram
-![Diagram](./updated_diagram_3.png)
+<br></br>
+![Diagram](./updated_diagram_2.png)
 
 ---
 ### 🧾 Usage
