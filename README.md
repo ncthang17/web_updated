@@ -1,0 +1,84 @@
+# Flask Authentication & Admin Dashboard Web App
+
+A Flask-based web application that provides **user signup, login, password reset, user info submission, and admin dashboard**.  
+Built with **Flask, Bootstrap 5, and JSON storage** (no SQL database required).
+
+---
+
+## 🚀 Features
+
+- 🔑 **User Authentication**
+  - Signup with ID, password, and personal details
+  - Login & Logout
+  - Role-based access (user vs admin)
+
+- 🔐 **Password Management**
+  - Forgot password via email lookup
+  - Reset password using a token link
+
+- 📝 **User Info Submission**
+  - Registered users submit details (age, education, address, phone, work experience, certificates)
+  - Data stored as JSON in `scraped/` folder
+
+- 📊 **Admin Dashboard**
+  - View all submitted data
+  - Export submissions as CSV
+
+- 🎨 **Responsive UI**
+  - Built with **Bootstrap 5** and **Font Awesome**
+
+---
+
+## 📂 Project Structure
+```
+project/
+├── app_2.py          # Main Flask application
+├── users.json        # User data storage
+├── scraped/          # Submitted user info
+│   ├── scraped_user_*.json
+│   └── all_scraped.json
+├── templates/        # HTML templates
+│   ├── base.html
+│   ├── signup.html
+│   ├── login.html
+│   ├── reset.html
+│   ├── forgot_result.html
+│   ├── register.html
+│   ├── info.html
+│   └── admin.html
+├── static/           # CSS/JS files (optional)
+└── README.md         # Project documentation
+```
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+```
+### 2. Create a virtual environment
+```
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
+```
+### 3. Install dependencies
+```
+pip install flask beautifulsoup4 werkzeug
+```
+or
+```
+pip install -r requirements.txt
+```
+### 4. Run the app
+```
+python app_2.py
+```
+Open in browser: http://127.0.0.1:5000
+
+---
+🗂 Workflow Diagram
+<br></br>
+![Diagram](./updated_diagram_2.png)
