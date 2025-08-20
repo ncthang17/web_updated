@@ -1,0 +1,35 @@
+{
+  "john123": {
+    "password": "pass123",
+    "email": "nguyenchienthang170520@gmail.com",
+    "age": "30",
+    "education": "학사",
+    "address": "서울시",
+    "phone": "010-1234-5678",
+    "work_experience": "5년",
+    "certificate": "파이썬 개발자 자격증",
+    "role": "admin"
+  },
+  "anna456": {
+    "password": "password456",
+    "email": "thangqhcolen@korea.ac.kr",
+    "age": "28",
+    "education": "석사",
+    "address": "부산시",
+    "phone": "010-9876-5432",
+    "work_experience": "3 년",
+    "certificate": "데이터 분석 자격증",
+    "role": "user"
+  },
+  "harry": {
+    "password": "h123",
+    "email": "harry123@gmail.com",
+    "age": "29",
+    "education": "학사",
+    "address": "세종시",
+    "phone": "01011112222",
+    "work_experience": "없음",
+    "certificate": "없음",
+    "role": "user"
+  }
+}
