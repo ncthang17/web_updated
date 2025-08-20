@@ -1,7 +1,7 @@
 # Flask Authentication & Admin Dashboard Web App
 
-A Flask-based web application that provides **user signup, login, password reset, user info submission, and admin dashboard**.  
-Built with **Flask, Bootstrap 5, and JSON storage** (no SQL database required).
+- A Flask-based web application that provides **user signup, login, password reset, user info submission, and admin dashboard**.  
+- Built with **Flask, Bootstrap 5, and JSON storage** (no SQL database required).
 
 ---
 
@@ -79,6 +79,27 @@ python app_2.py
 Open in browser: http://127.0.0.1:5000
 
 ---
-🗂 Workflow Diagram
-<br></br>
-![Diagram](./updated_diagram_2.png)
+### 🗂 Workflow Diagram
+![Diagram](./updated_diagram_3.png)
+
+---
+### 🧾 Usage
+1. Sign up with /signup
+2. Login at /login
+3. Regular users:
+   - Go to /register → Click Submit Info
+   - View submitted info at /info
+4. Admin users:
+   - Access /admin → View all submissions
+---
+### 🔑 Admin Instructions
+
+To make a user an admin:
+
+ 1. Open users.json
+ 2. Change "role": "user" → "role": "admin"
+
+---
+### ⚠️ Security Notes
+- Passwords are stored in plain text. For production, use werkzeug.security.generate_password_hash & check_password_hash.
+- No real email service configured; password reset link is shown directly in the app.
